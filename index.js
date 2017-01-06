@@ -1,37 +1,37 @@
-const assert = require("assert");
+const assert = require('assert');
 
-const dot = function (a, b) {
-    "use strict";
+const dot = function(a, b) {
+    'use strict';
     return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
 };
 
-const cross = function (u, v) {
-    "use strict";
+const cross = function(u, v) {
+    'use strict';
     return [
         u[1] * v[2] - u[2] * v[1],
         u[2] * v[0] - u[0] * v[2],
-        u[0] * v[1] - u[1] * v[0]
+        u[0] * v[1] - u[1] * v[0],
     ];
 };
 
-const sub = function (a, b) {
-    "use strict";
+const sub = function(a, b) {
+    'use strict';
     return [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
 };
 
-const length = function (a) {
-    "use strict";
+const length = function(a) {
+    'use strict';
     return Math.sqrt(dot(a, a));
 };
 
-const normalize = function (a) {
-    "use strict";
+const normalize = function(a) {
+    'use strict';
     const s = 1.0 / length(a);
     return [s * a[0], s * a[1], s * a[2]];
 };
 
-const matmul = function (a, b) {
-    "use strict";
+const matmul = function(a, b) {
+    'use strict';
     let c = [];
     c.length = 16;
     let i;
@@ -60,8 +60,8 @@ const matmul = function (a, b) {
 // given the positions of 3 screen corners, the camera position,
 // and the near and far plane
 // See http://csc.lsu.edu/~kooima/pdfs/gen-perspective.pdf
-module.exports = function (pa, pb, pc, pe, n, f) {
-    "use strict";
+module.exports = function(pa, pb, pc, pe, n, f) {
+    'use strict';
     assert(pa.length === 3);
     assert(pb.length === 3);
     assert(pc.length === 3);
@@ -99,24 +99,24 @@ module.exports = function (pa, pb, pc, pe, n, f) {
     const B = (t + b) / (t - b);
     const C = -(f + n) / (f - n);
     const D = -2 * f * n / (f - n);
-    P[0] = x; P[4] = 0;  P[8] = A;  P[12] = 0;
-    P[1] = 0; P[5] = y;  P[9] = B;  P[13] = 0;
-    P[2] = 0; P[6] = 0; P[10] = C;  P[14] = D;
+    P[0] = x; P[4] = 0; P[8] = A; P[12] = 0;
+    P[1] = 0; P[5] = y; P[9] = B; P[13] = 0;
+    P[2] = 0; P[6] = 0; P[10] = C; P[14] = D;
     P[3] = 0; P[7] = 0; P[11] = -1; P[15] = 0;
 
     // Take into account the coordinate system of the screen
     let Mt = [];
     Mt.length = 16;
-    Mt[0] = vr[0]; Mt[4] = vr[1];  Mt[8] = vr[2];  Mt[12] = 0;
-    Mt[1] = vu[0]; Mt[5] = vu[1];  Mt[9] = vu[2];  Mt[13] = 0;
-    Mt[2] = vn[0]; Mt[6] = vn[1]; Mt[10] = vn[2];  Mt[14] = 0;
-    Mt[3] = 0;     Mt[7] = 0;     Mt[11] = 0;      Mt[15] = 1;
+    Mt[0] = vr[0]; Mt[4] = vr[1]; Mt[8] = vr[2]; Mt[12] = 0;
+    Mt[1] = vu[0]; Mt[5] = vu[1]; Mt[9] = vu[2]; Mt[13] = 0;
+    Mt[2] = vn[0]; Mt[6] = vn[1]; Mt[10] = vn[2]; Mt[14] = 0;
+    Mt[3] = 0; Mt[7] = 0; Mt[11] = 0; Mt[15] = 1;
 
     // Translate the eye position
     let T = [];
     T.length = 16;
-    T[0] = 1; T[4] = 0;  T[8] = 0; T[12] = -pe[0];
-    T[1] = 0; T[5] = 1;  T[9] = 0; T[13] = -pe[1];
+    T[0] = 1; T[4] = 0; T[8] = 0; T[12] = -pe[0];
+    T[1] = 0; T[5] = 1; T[9] = 0; T[13] = -pe[1];
     T[2] = 0; T[6] = 0; T[10] = 1; T[14] = -pe[2];
     T[3] = 0; T[7] = 0; T[11] = 0; T[15] = 1;
 
