@@ -1,0 +1,15 @@
+{
+  "name": "generalized-perspective-projection",
+  "version": "1.0.0",
+  "description": "A function to calculate the generalized perspective projection matrix as described in http://csc.lsu.edu/~kooima/pdfs/gen-perspective.pdf",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Justin Shrake",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
+}
